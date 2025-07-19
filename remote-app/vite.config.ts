@@ -1,31 +1,26 @@
-// vite.config.ts
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import  federation  from "@originjs/vite-plugin-federation";
+import federation from '@originjs/vite-plugin-federation'
 
-
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "remoteApp",
-      filename: "remoteEntry.js",
+      name: 'remoteMusicApp',
+      filename: 'remoteEntry.js', // This must match what host app requests
       exposes: {
-        "./Button": "./src/components/Button",
+        './App': './src/App.tsx'
       },
-      shared: ["react", "react-dom"],
+      shared: ['react', 'react-dom', '@mui/material']
     })
   ],
   build: {
-    modulePreload: false,
-    target: "esnext",
-    minify: false,
-    cssCodeSplit: false
+    target: 'esnext',
+    outDir: 'dist', // Make sure this is set
+    assetsDir: 'assets' // This is default but good to confirm
   },
-  preview: {
-    port: 3000,
-    strictPort: true,
-    cors: true
+  server: {
+    port: 5001, // Must match the port in host app config
+    strictPort: true
   }
 })

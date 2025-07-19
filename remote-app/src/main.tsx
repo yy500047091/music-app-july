@@ -1,10 +1,13 @@
-// src/main.tsx
 import { StrictMode } from 'react'
 import { createRoot } from 'react-dom/client'
-import Button from './components/Button'
+import { BrowserRouter } from 'react-router-dom'; // Add this
+import './index.css'
+import App from './App'; // Renamed from App1.tsx to match original
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <Button text='Click me' />
-  </StrictMode>,
+    <BrowserRouter> {/* Wrap App with BrowserRouter */}
+      <App />
+    </BrowserRouter>
+  </StrictMode>
 )

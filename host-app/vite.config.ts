@@ -6,17 +6,16 @@ export default defineConfig({
   plugins: [
     react(),
     federation({
-      name: "hostApp",
+      name: 'hostApp',
       remotes: {
-        remoteApp: "http://localhost:3000/assets/remoteEntry.js",
+        // Make sure this URL matches your remote app's server port and path
+        remoteMusicApp: 'http://localhost:5001/assets/remoteEntry.js'
       },
-      shared: ["react", "react-dom"],
-    }),
+      shared: ['react', 'react-dom', '@mui/material']
+    })
   ],
-  build: {
-    modulePreload: false,
-    target: "esnext",
-    minify: false,
-    cssCodeSplit: false,
+  server: {
+    port: 3000, // Different from remote app
+    strictPort: true
   }
-});
+})
